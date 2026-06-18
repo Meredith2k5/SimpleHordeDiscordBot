@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  horde-bot:
+    build: .
+    container_name: SimpleHordeDiscordBot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/data
+    networks:
+      - bot-net
+
+networks:
+  bot-net:
+    driver: bridge
