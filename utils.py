@@ -26,6 +26,8 @@ HORDE_DEFAULT_CFG_SCALE = float(os.getenv("HORDE_DEFAULT_CFG_SCALE", "7.0"))
 HORDE_DEFAULT_HIRES_FIX = os.getenv("HORDE_DEFAULT_HIRES_FIX", "false").lower() == "true"
 HORDE_DEFAULT_CLIP_SKIP = int(os.getenv("HORDE_DEFAULT_CLIP_SKIP", "1"))
 HORDE_TIMEOUT = int(os.getenv("HORDE_TIMEOUT", "600"))
+HORDE_SAFEGUARD_MODELS = [m.strip() for m in os.getenv("HORDE_SAFEGUARD_MODELS", "").split(",") if m.strip()]
+HORDE_SAFEGUARD_NEGATIVES = os.getenv("HORDE_SAFEGUARD_NEGATIVES", "child, underage, loli")
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 

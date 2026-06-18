@@ -8,7 +8,8 @@ from utils import (
     HORDE_API_KEY, HORDE_TIMEOUT, setup_logging,
     HORDE_ALLOW_NSFW, HORDE_DEFAULT_MODEL, HORDE_DEFAULT_SAMPLER, HORDE_DEFAULT_WIDTH,
     HORDE_DEFAULT_HEIGHT, HORDE_DEFAULT_STEPS, HORDE_DEFAULT_CFG_SCALE,
-    HORDE_DEFAULT_HIRES_FIX, HORDE_DEFAULT_CLIP_SKIP
+    HORDE_DEFAULT_HIRES_FIX, HORDE_DEFAULT_CLIP_SKIP,
+    HORDE_SAFEGUARD_MODELS, HORDE_SAFEGUARD_NEGATIVES
 )
 
 logger = setup_logging()
@@ -166,6 +167,18 @@ class HordeClient:
         elif not final_negative:
             final_negative = "ugly, deformed, noisy, blurry, distorted, out of focus, bad anatomy, extra limbs, poorly drawn face, poorly drawn hands, missing fingers"
             final_prompt = f"{prompt}, masterpiece, best quality, ultra-detailed, highres"
+
+        # --- CSAM / Underage Safeguard Injection ---
+        # If the requested model is in our restricted list, forcefully append the safeguard negatives.
+        if final_model in HORDE_SAFEGUARD_MODELS and HORDE_SAFEGUARD_NEGATIVES:
+            logger.info(f"Applying safety negative prompt safeguards for model: {final_model}")
+            if final_negative:
+                final_negative = f"{final_negative}, {HORDE_SAFEGUARD_NEGATIVES}"
+            else:
+                final_negative = HORDE_SAFEGUARD_NEGATIVES
+
+        # 3. Apply Explicit User Overrides (Command Arguments)
+        final_model = model or final_model
 
         # 3. Apply Explicit User Overrides (Command Arguments)
         final_model = model or final_model
