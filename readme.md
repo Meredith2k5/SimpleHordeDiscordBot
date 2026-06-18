@@ -29,7 +29,7 @@ Before running this bot, you will need:
 git clone [https://github.com/Meredith2k5/SimpleHordeDiscordBot.git](https://github.com/Meredith2k5/SimpleHordeDiscordBot.git)
 cd SimpleHordeDiscordBot
 ```
-*Alternatively, you can download the repository as a `.zip` file from GitHub and extract it to a folder named `/simplehordediscordbot` on your machine.*
+*Alternatively, you can download the repository as a `.zip` file from GitHub and extract it to a folder named `/SimpleHordeDiscordBot` on your machine.*
 
 **2. Configure your Environment Variables**
 Open `.env` in your text editor and fill in your actual credentials:
